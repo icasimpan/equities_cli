@@ -1,0 +1,5 @@
+These tools are for the author's personal use. Any usage outside is NOT in any way supported.
+
+Sites that can be mined:
+* http://www.reuters.com/finance/stocks/overview?symbol=SMC.PS
+* http://www.bloomberg.com/quote/SMC:PM
