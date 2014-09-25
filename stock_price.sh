@@ -16,7 +16,7 @@ SMC
 FDC
 "
 
-ticker=$*
+ticker=$(echo $*|tr a-z A-Z)
 [[ "$ticker" = "" ]] && ticker=$my_portfolio
 
 get_PrevClose() {
