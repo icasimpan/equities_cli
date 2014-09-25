@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-ticker="
+my_portfolio="
 CNPF
 COSCO
 DMPL
@@ -15,6 +15,9 @@ PNX
 SMC
 FDC
 "
+
+ticker=$*
+[[ "$ticker" = "" ]] && ticker=$my_portfolio
 
 get_PrevClose() {
   echo $(cat $ticker_source|grep -A2 "Prev Close"|grep -v Close|grep span|awk -F\; '{print $NF}'|cut -d'<' -f1)
