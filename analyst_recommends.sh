@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ticker="
+my_portfolio="
 CNPF
 COSCO
 DMPL
@@ -14,6 +14,9 @@ PNX
 SMC
 FDC
 "
+
+ticker=$(echo $*|tr a-z A-Z)
+[[ "$ticker" = "" ]] && ticker=$my_portfolio
 
 for each_ticker in $ticker; do
   echo -n "[$each_ticker] - "
