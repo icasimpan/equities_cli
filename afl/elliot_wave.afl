@@ -1,0 +1,38 @@
+// from http://www.stockmarketpilipinas.com/thread-531-page-4.html c/o NinjaTrader919
+
+Plot(C, "", IIf(O>=C, colorOrange, colorGreen), ParamStyle("Price Style",styleCandle,maskPrice));
+
+//Elliot Wave [Single Loop]
+_SECTION_BEGIN("Elliotwave");
+X=BarIndex();
+p=Param("p",1,5,30,1);
+z=Zig(C,p);Plot(C,"C",2,64);
+CONDP=PeakBars(C,P)==0;SP=Cum(CONDP);
+EP1=ValueWhen(CONDP,C,1);TP1=ValueWhen(CONDP,X,1); 
+EP2=ValueWhen(CONDP,C,2);TP2=ValueWhen(CONDP,X,2);
+EP3=ValueWhen(CONDP,C,3);TP3=ValueWhen(CONDP,X,3);
+EP4=ValueWhen(CONDP,C,4);TP4=ValueWhen(CONDP,X,4);
+CONDT=TroughBars(C,P)==0;ST=Cum(CONDT);
+ET1=ValueWhen(CONDT,C,1);TT1=ValueWhen(CONDT,X,1);
+ET2=ValueWhen(CONDT,C,2);TT2=ValueWhen(CONDT,X,2);
+ET3=ValueWhen(CONDT,C,3);TT3=ValueWhen(CONDT,X,3);
+ET4=ValueWhen(CONDT,C,4);TT4=ValueWhen(CONDT,X,4);
+ET5=ValueWhen(CONDT,C,5);TT5=ValueWhen(CONDT,X,5);
+// EW definition
+EW8=EP3>EP4 AND EP2>EP3 AND EP2>EP1 AND ET4>ET5 AND ET3>ET2 AND
+ET2>ET1 AND ET3>ET4 AND ET4>ET5 AND CONDT;
+COLOR=colorWhite;
+PlotShapes(shapeDigit8*EW8,color);
+G=Cum(CONDP OR CONDT);
+GEW=SelectedValue(ValueWhen(EW8,G));
+for(n=1;n<=9;n++)
+{
+PlotShapes((49-(2*n-(n%2)))*(G==GEW-n AND (n%2)*CONDP+(-1+n%2)
+*CONDT),Color);
+}
+Plot(EW8,"",colorRed,2+styleOwnScale);
+Plot(z,"",colorYellow,styleThick);
+Filter=EW8;// explore for all quotations
+AddColumn(C,"C");
+GraphXSpace=8;
+_SECTION_END();
